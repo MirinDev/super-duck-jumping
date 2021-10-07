@@ -1,14 +1,17 @@
 #include "duck.hpp"
 
+
 Duck::Duck(SDL_Renderer *renderer, int x, int y){
-    img=IMG_LoadTexture(renderer, "res/duck.png");
+    SDL_Surface *tmp=IMG_ReadXPMFromArray(icon_xpm);
+    img=SDL_CreateTextureFromSurface(renderer, tmp);
+    //img=IMG_LoadTexture(renderer, "res/duck.png");
     
     rect.x=x;
     rect.y=y;
 }
 
 void Duck::draw(SDL_Renderer *renderer){
-    SDL_RenderCopyEx(renderer, img, NULL, &rect, cos(ticks)*16, &center, SDL_FLIP_NONE);
+    SDL_RenderCopyEx(renderer, img, NULL, &rect, cos(ticks)*16, &center, flip);
 }
 
 void Duck::update(Obstacle *obs[], int size){
@@ -20,6 +23,13 @@ void Duck::update(Obstacle *obs[], int size){
     }
     if(vspd<8){
         vspd+=1;
+    }
+
+    if(hspd<0){
+        flip=SDL_FLIP_HORIZONTAL;
+    }
+    if(hspd>0){
+        flip=SDL_FLIP_NONE;
     }
     
     SDL_Rect hc={rect.x+hspd, rect.y, rect.w, rect.h};

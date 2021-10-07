@@ -64,12 +64,14 @@ int main(){
         duck->draw(renderer);
         int size=sizeof(obs)/sizeof(*obs);
         duck->update(obs, size);
+
+        SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255);
         for(int i=0; i<size; i++){
-            SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255);
-            obs[i]->draw(renderer);
             if(i>0){
+                SDL_SetRenderDrawColor(renderer, 200, 200, 0, 255);
                 //obs[i]->update();
             }
+            obs[i]->draw(renderer);
         }
 
         SDL_RenderPresent(renderer);
