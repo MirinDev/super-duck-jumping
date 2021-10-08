@@ -4,7 +4,6 @@
 Duck::Duck(SDL_Renderer *renderer, int x, int y){
     SDL_Surface *tmp=IMG_ReadXPMFromArray(icon_xpm);
     img=SDL_CreateTextureFromSurface(renderer, tmp);
-    //img=IMG_LoadTexture(renderer, "res/duck.png");
     
     rect.x=x;
     rect.y=y;
@@ -27,9 +26,11 @@ void Duck::update(Obstacle *obs[], int size){
 
     if(hspd<0){
         flip=SDL_FLIP_HORIZONTAL;
+        center.x=20;
     }
     if(hspd>0){
         flip=SDL_FLIP_NONE;
+        center.x=12;
     }
     
     SDL_Rect hc={rect.x+hspd, rect.y, rect.w, rect.h};

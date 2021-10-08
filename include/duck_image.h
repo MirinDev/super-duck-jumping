@@ -1,5 +1,6 @@
 #ifndef DUCK_IMAGE_H
 #define DUCK_IMAGE_H
+#include <stdio.h>
 
 static char *icon_xpm[]={
     "32 32 3 1 ",

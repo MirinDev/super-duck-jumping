@@ -3,6 +3,8 @@
 
 #include "duck.hpp"
 #include "obstacle.hpp"
+#include "mestre.hpp"
+#include "kk.h"
 double ticks=0;
 bool game=true;
 
@@ -21,14 +23,16 @@ int main(){
 
     //game variables
     Duck *duck=new Duck(renderer, 32, 320);
+    Mestre *m=new Mestre(renderer, 32, 320);
     Obstacle *obs[]={
         (new Obstacle(0, 352, 600, 58)),
         
         (new Obstacle(128, 320, 32, 32)),
         (new Obstacle(320, 320, 32, 32))
     };
-
-    SDL_Rect screen={0, 0, 600, 400};
+    
+    SDL_Surface *tmpo=IMG_ReadXPMFromArray(kk);
+    SDL_Texture *image=SDL_CreateTextureFromSurface(renderer, tmpo);
     while(game){
         Uint32 start=SDL_GetTicks();
 
@@ -58,10 +62,10 @@ int main(){
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
 
-        SDL_SetRenderDrawColor(renderer, 0, 200, 200, 255);
-        SDL_RenderFillRect(renderer, &screen);
+        SDL_RenderCopy(renderer, image, NULL, NULL);
 
         duck->draw(renderer);
+        m->draw(renderer);
         int size=sizeof(obs)/sizeof(*obs);
         duck->update(obs, size);
 

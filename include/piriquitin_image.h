@@ -1,7 +1,8 @@
 #ifndef PIRIQUITIN_IMAGE_H
 #define PIRIQUITIN_IMAGE_H
+#include <stdio.h>
 
-static char *icon_xpm[]={
+static char *piriquitin[]={
     "16 16 4 1 ",
     "  c None",
     ". c black",
