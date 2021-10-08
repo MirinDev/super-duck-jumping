@@ -14,16 +14,16 @@ static char *piriquitin[]={
     "                ",
     "                ",
     "                ",
-    "    ...         ",
-    "   .ooo..       ",
-    "  .oo.oo...     ",
-    "   .oooooo..... ",
-    "   .oooXoooooo. ",
-    "   .ooooXXXoo.. ",
-    "    .oooooo...  ",
+    "         ...    ",
+    "        .ooo.   ",
+    "      ..oo.oo.  ",
+    "  ....oooooo.   ",
+    " .ooooooXooo.   ",
+    "  .ooXXXoooo.   ",
+    "   ..oooooo.    ",
     "     ......     ",
-    "     .   .      ",
-    "     .   .      "
+    "      .   .     ",
+    "      .   .     "
 };
 
 #endif

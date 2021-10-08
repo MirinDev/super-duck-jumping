@@ -4,6 +4,7 @@
 Duck::Duck(SDL_Renderer *renderer, int x, int y){
     SDL_Surface *tmp=IMG_ReadXPMFromArray(icon_xpm);
     img=SDL_CreateTextureFromSurface(renderer, tmp);
+    SDL_FreeSurface(tmp);
     
     rect.x=x;
     rect.y=y;

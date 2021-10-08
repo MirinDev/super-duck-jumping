@@ -11,6 +11,9 @@ bool game=true;
 bool colision(SDL_Rect *r, SDL_Rect *rr){
     return(r->x<rr->x+rr->w && r->x+r->w>rr->x && r->y<rr->y+rr->h && r->y+r->h>rr->y);
 }
+float lerp(float a, float b, float f){
+    return a+f*(b-a);
+}
 
 int main(){
     //basic progam
@@ -33,6 +36,7 @@ int main(){
     
     SDL_Surface *tmpo=IMG_ReadXPMFromArray(kk);
     SDL_Texture *image=SDL_CreateTextureFromSurface(renderer, tmpo);
+    SDL_FreeSurface(tmpo);
     while(game){
         Uint32 start=SDL_GetTicks();
 
@@ -59,7 +63,7 @@ int main(){
 
         //draw
         SDL_RenderSetLogicalSize(renderer, 600, 400);
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
         SDL_RenderClear(renderer);
 
         SDL_RenderCopy(renderer, image, NULL, NULL);
@@ -68,6 +72,7 @@ int main(){
         m->draw(renderer);
         int size=sizeof(obs)/sizeof(*obs);
         duck->update(obs, size);
+        m->update(obs, size, duck);
 
         SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255);
         for(int i=0; i<size; i++){

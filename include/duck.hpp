@@ -14,7 +14,6 @@ bool colision(SDL_Rect *r, SDL_Rect *rr);
 class Duck{
     private:
         SDL_Point center={12, 26};
-        SDL_Rect rect={0, 0, 32, 32};
         SDL_Texture *img;
         SDL_RendererFlip flip=SDL_FLIP_NONE;
 
@@ -34,6 +33,8 @@ class Duck{
         void update(Obstacle *obs[], int size);
         void keyd(SDL_Keycode key);
         void keyu(SDL_Keycode key);
+
+        SDL_Rect rect={0, 0, 32, 32};
 };
 
 #endif
