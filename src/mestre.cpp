@@ -1,9 +1,13 @@
 #include "mestre.hpp"
 
 Mestre::Mestre(SDL_Renderer *renderer, int x, int y){
+    #if !USE_IMAGES
     SDL_Surface *tmp=IMG_ReadXPMFromArray(piriquitin);
     img=SDL_CreateTextureFromSurface(renderer, tmp);
     SDL_FreeSurface(tmp);
+    #else
+    img=IMG_LoadTexture(renderer, "res/piriquiton.png");
+    #endif
     
     rect.x=x;
     rect.y=y;
@@ -26,7 +30,7 @@ void Mestre::update(Obstacle *obs[], int size, Duck *duck){
     }
 
     SDL_Rect hc={rect.x+hspd, rect.y, rect.w, rect.h};
-    for(int i=1; i<size; i++){
+    for(int i=0; i<size; i++){
         if(colision(&hc, &obs[i]->rect)){
             if(hspd>0){
                 rect.x=obs[i]->rect.x-rect.w;

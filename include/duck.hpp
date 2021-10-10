@@ -4,18 +4,24 @@
 #include <math.h>
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
-
+#include "config.h"
 #include "obstacle.hpp"
+#include "ganxo.hpp"
+#if !USE_IMAGES
 #include "duck_image.h"
+#endif
 extern double ticks;
 extern bool game;
+extern SDL_Rect mrect;
 bool colision(SDL_Rect *r, SDL_Rect *rr);
+int sign(int num);
 
 class Duck{
     private:
         SDL_Point center={12, 26};
         SDL_Texture *img;
         SDL_RendererFlip flip=SDL_FLIP_NONE;
+        Ganxo *g;
 
         int spd=6;
         int hspd=0;
@@ -25,6 +31,8 @@ class Duck{
         bool right=false;
         bool pjump=false;
         bool jump=false;
+
+        bool action=false;
 
         bool down=false;
     public:

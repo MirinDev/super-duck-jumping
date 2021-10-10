@@ -1,10 +1,14 @@
+#include "config.h"
+
 #include <stdio.h>
 #include "SDL2/SDL.h"
 
 #include "duck.hpp"
 #include "obstacle.hpp"
 #include "mestre.hpp"
+#if !USE_IMAGES
 #include "kk.h"
+#endif
 double ticks=0;
 bool game=true;
 
@@ -14,6 +18,16 @@ bool colision(SDL_Rect *r, SDL_Rect *rr){
 float lerp(float a, float b, float f){
     return a+f*(b-a);
 }
+int sign(int num){
+    if(num<0){
+        return -1;
+    }else if(num>0){
+        return 1;
+    }else{
+        return 0;
+    }
+}
+SDL_Rect mrect={0, 0, 13, 13};
 
 int main(){
     //basic progam
@@ -23,20 +37,27 @@ int main(){
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
     Uint32 fps=1000/60;
     bool full=false;
+    //SDL_ShowCursor(0);
 
     //game variables
     Duck *duck=new Duck(renderer, 32, 320);
     Mestre *m=new Mestre(renderer, 32, 320);
     Obstacle *obs[]={
         (new Obstacle(0, 352, 600, 58)),
-        
         (new Obstacle(128, 320, 32, 32)),
-        (new Obstacle(320, 320, 32, 32))
+        (new Obstacle(320, 320, 32, 32)),
+        (new Obstacle(384, 160, 32, 96)),
+        (new Obstacle(416, 224, 96, 32))
     };
     
+    #if !USE_IMAGES
     SDL_Surface *tmpo=IMG_ReadXPMFromArray(kk);
     SDL_Texture *image=SDL_CreateTextureFromSurface(renderer, tmpo);
     SDL_FreeSurface(tmpo);
+    #else
+    SDL_Texture *image=IMG_LoadTexture(renderer, "res/kk.png");
+    #endif
+
     while(game){
         Uint32 start=SDL_GetTicks();
 
@@ -76,13 +97,10 @@ int main(){
 
         SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255);
         for(int i=0; i<size; i++){
-            if(i>0){
-                SDL_SetRenderDrawColor(renderer, 200, 200, 0, 255);
-                //obs[i]->update();
-            }
+            //obs[i]->update();
             obs[i]->draw(renderer);
         }
-
+        
         SDL_RenderPresent(renderer);
 
        

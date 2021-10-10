@@ -1,9 +1,14 @@
 #ifndef MESTRE_HPP
 #define MESTRE_HPP
 #include <stdio.h>
+#include <math.h>
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
+
+#include "config.h"
+#if !USE_IMAGES
 #include "piriquitin_image.h"
+#endif
 #include "obstacle.hpp"
 #include "duck.hpp"
 bool colision(SDL_Rect *r, SDL_Rect *rr);

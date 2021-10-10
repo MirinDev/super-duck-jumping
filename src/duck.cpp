@@ -2,9 +2,14 @@
 
 
 Duck::Duck(SDL_Renderer *renderer, int x, int y){
+    #if !USE_IMAGES
     SDL_Surface *tmp=IMG_ReadXPMFromArray(icon_xpm);
     img=SDL_CreateTextureFromSurface(renderer, tmp);
     SDL_FreeSurface(tmp);
+    #else
+    img=IMG_LoadTexture(renderer, "res/duck.png");
+    #endif
+    g=new Ganxo(0, 0);
     
     rect.x=x;
     rect.y=y;
@@ -12,6 +17,7 @@ Duck::Duck(SDL_Renderer *renderer, int x, int y){
 
 void Duck::draw(SDL_Renderer *renderer){
     SDL_RenderCopyEx(renderer, img, NULL, &rect, cos(ticks)*16, &center, flip);
+    g->draw(renderer);
 }
 
 void Duck::update(Obstacle *obs[], int size){
@@ -35,68 +41,79 @@ void Duck::update(Obstacle *obs[], int size){
     }
     
     SDL_Rect hc={rect.x+hspd, rect.y, rect.w, rect.h};
-    SDL_Rect vc={rect.x, rect.y+vspd, rect.w, rect.h};
-
-    for(int i=1; i<size; i++){
-        if(colision(&rect, &obs[i]->rect)){
-            game=false;
-        }
-    }
-
-    if(colision(&hc, &obs[0]->rect)){
-        if(hspd>0){
-            rect.x=obs[0]->rect.x-rect.w;
-        }
-        if(hspd<0){
-            rect.x=obs[0]->rect.x+obs[0]->rect.w;
-        }
-        hspd=0;
-    }
-    if(colision(&vc, &obs[0]->rect)){
-        if(vspd>0){
-            rect.y=obs[0]->rect.y-rect.h;
-            down=true;
-        }
-        if(vspd<0){
-            rect.y=obs[0]->rect.y+obs[0]->rect.h;
-        }
-        if(vspd>0 && jump){
-            vspd=-16;
-            jump=false;
-            down=false;
-        }else{
-            vspd=0;
+    for(int i=0; i<size; i++){
+        if(colision(&hc, &obs[i]->rect)){
+            if(hspd>0){
+                rect.x=obs[i]->rect.x-rect.w;
+            }
+            if(hspd<0){
+                rect.x=obs[i]->rect.x+obs[i]->rect.w;
+            }
+            hspd=0;
+            if(action){
+                vspd=-4;
+            }
         }
     }
     rect.x+=hspd;
+
+    SDL_Rect vc={rect.x, rect.y+vspd, rect.w, rect.h};
+    for(int i=0; i<size; i++){
+        if(colision(&vc, &obs[i]->rect)){
+            if(vspd>0){
+                rect.y=obs[i]->rect.y-rect.h;
+                down=true;
+            }
+            if(vspd<0){
+                rect.y=obs[i]->rect.y+obs[i]->rect.h;
+            }
+            if(vspd>0 && jump){
+                vspd=-16;
+                jump=false;
+                down=false;
+            }else{
+                vspd=0;
+            }
+        }
+    }
     rect.y+=vspd;
-    
-    hspd=0;
+
+    g->set(rect.x+8, rect.y+8);
+    g->update();
+
+    hspd-=sign(hspd)*spd;
 }
 
 void Duck::keyd(SDL_Keycode  key){
-    if(key==SDLK_a){
+    if(key==SDLK_LEFT){
         left=true;
     }
-    if(key==SDLK_d){
+    if(key==SDLK_RIGHT){
         right=true;
     }
-    if(key==SDLK_SPACE){
+    if(key==SDLK_z){
         if(!pjump && down){
             jump=true;
         }
         pjump=true;
     }
+    if(key==SDLK_x){
+        action=true;
+    }
+    g->key(key);
 }
 
 void Duck::keyu(SDL_Keycode key){
-    if(key==SDLK_a){
+    if(key==SDLK_LEFT){
         left=false;
     }
-    if(key==SDLK_d){
+    if(key==SDLK_RIGHT){
         right=false;
     }
-    if(key==SDLK_SPACE){
+    if(key==SDLK_z){
         pjump=false;
+    }
+    if(key==SDLK_x){
+        action=false;
     }
 }
