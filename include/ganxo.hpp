@@ -6,17 +6,19 @@
 
 class Ganxo{
     private:
-        SDL_Rect rect={0, 0, 16, 8};
+        SDL_Point rect={0, 0};
         int x=0;
         int y=0;
-        bool down=false;
+        bool pleft=false;
+        bool pright=false;
+        int mode=1;
     public:
         Ganxo(int x, int y);
         void draw(SDL_Renderer *renderer);
         void set(int x, int y);
         void update();
-        void key(SDL_Keycode key);
-
+        void keyd(SDL_Keycode key);
+        void keyu(SDL_Keycode key);
         double r;
 };
 

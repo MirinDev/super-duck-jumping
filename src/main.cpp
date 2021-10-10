@@ -18,15 +18,7 @@ bool colision(SDL_Rect *r, SDL_Rect *rr){
 float lerp(float a, float b, float f){
     return a+f*(b-a);
 }
-int sign(int num){
-    if(num<0){
-        return -1;
-    }else if(num>0){
-        return 1;
-    }else{
-        return 0;
-    }
-}
+
 SDL_Rect mrect={0, 0, 13, 13};
 
 int main(){

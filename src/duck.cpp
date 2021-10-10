@@ -81,7 +81,7 @@ void Duck::update(Obstacle *obs[], int size){
     g->set(rect.x+8, rect.y+8);
     g->update();
 
-    hspd-=sign(hspd)*spd;
+    hspd=0;
 }
 
 void Duck::keyd(SDL_Keycode  key){
@@ -91,16 +91,16 @@ void Duck::keyd(SDL_Keycode  key){
     if(key==SDLK_RIGHT){
         right=true;
     }
-    if(key==SDLK_z){
+    if(key==SDLK_c){
         if(!pjump && down){
             jump=true;
         }
         pjump=true;
     }
-    if(key==SDLK_x){
+    if(key==SDLK_z){
         action=true;
     }
-    g->key(key);
+    g->keyd(key);
 }
 
 void Duck::keyu(SDL_Keycode key){
@@ -110,10 +110,12 @@ void Duck::keyu(SDL_Keycode key){
     if(key==SDLK_RIGHT){
         right=false;
     }
-    if(key==SDLK_z){
+    if(key==SDLK_c){
         pjump=false;
     }
-    if(key==SDLK_x){
+    if(key==SDLK_z){
         action=false;
     }
+
+    g->keyu(key);
 }
