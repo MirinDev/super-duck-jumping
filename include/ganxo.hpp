@@ -15,10 +15,8 @@ class Ganxo{
     public:
         Ganxo(int x, int y);
         void draw(SDL_Renderer *renderer);
-        void set(int x, int y);
+        void set(int x, int y, SDL_RenderFlip *flip);
         void update();
-        void keyd(SDL_Keycode key);
-        void keyu(SDL_Keycode key);
         double r;
 };
 

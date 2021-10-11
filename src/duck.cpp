@@ -100,7 +100,6 @@ void Duck::keyd(SDL_Keycode  key){
     if(key==SDLK_z){
         action=true;
     }
-    g->keyd(key);
 }
 
 void Duck::keyu(SDL_Keycode key){
@@ -116,6 +115,4 @@ void Duck::keyu(SDL_Keycode key){
     if(key==SDLK_z){
         action=false;
     }
-
-    g->keyu(key);
 }

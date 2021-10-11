@@ -23,30 +23,7 @@ void Ganxo::update(){
     }
 }
 
-void Ganxo::set(int sx, int sy){
+void Ganxo::set(int sx, int sy, SDL_RenderFlip *flip){
     rect.x=sx+8;
     rect.y=sy;
-}
-
-void Ganxo::keyd(SDL_Keycode key){
-    if(key==SDLK_LEFT){
-        if(!pleft){
-            mode=0;
-        }
-        pleft=true;
-    }
-    if(key==SDLK_RIGHT){
-        if(!pright){
-            mode=1;
-        }
-        pright=true;
-    }
-}
-void Ganxo::keyu(SDL_Keycode key){
-    if(key==SDLK_LEFT){
-        pleft=false;
-    }
-    if(key==SDLK_RIGHT){
-        pright=false;
-    }
 }
