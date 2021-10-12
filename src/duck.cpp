@@ -79,15 +79,17 @@ void Duck::update(Obstacle *obs[], int size){
     g->set(rect.x, rect.y);
     g->update(obs, size);
     if(ga){
-        g->attack(flip);
+        g->attack(&rect);
         ga=false;
     }
     hspd=0;
 
     if(g->push){
         hspd=lerp(rect.x, g->rect.x+g->point.x, 0.1)-rect.x;
+        vspd=lerp(rect.y, g->rect.y+g->point.y, 0.1)-rect.y;
         g->point.x-=hspd;
-        if(g->point.x==0){
+        g->point.y-=vspd;
+        if(g->point.x==0 && g->point.y==0){
             g->push=false;
         }
     }

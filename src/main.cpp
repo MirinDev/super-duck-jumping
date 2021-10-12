@@ -19,11 +19,11 @@ float lerp(float a, float b, float f){
     return a+f*(b-a);
 }
 
-SDL_Rect mrect={0, 0, 13, 13};
+int width=600, height=400;
 
 int main(){
     //basic progam
-    SDL_Window *window=SDL_CreateWindow("duck", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 600, 400, SDL_WINDOW_RESIZABLE);
+    SDL_Window *window=SDL_CreateWindow("duck", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_RESIZABLE);
     SDL_Renderer *renderer=SDL_CreateRenderer(window, 0, 0);
     SDL_Event event;
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
@@ -75,7 +75,7 @@ int main(){
         }
 
         //draw
-        SDL_RenderSetLogicalSize(renderer, 600, 400);
+        SDL_RenderSetLogicalSize(renderer, width, height);
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
         SDL_RenderClear(renderer);
 
