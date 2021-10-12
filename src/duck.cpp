@@ -62,7 +62,6 @@ void Duck::update(Obstacle *obs[], int size){
         if(colision(&vc, &obs[i]->rect)){
             if(vspd>0){
                 rect.y=obs[i]->rect.y-rect.h;
-                down=true;
             }
             if(vspd<0){
                 rect.y=obs[i]->rect.y+obs[i]->rect.h;
@@ -70,7 +69,6 @@ void Duck::update(Obstacle *obs[], int size){
             if(vspd>0 && jump){
                 vspd=-16;
                 jump=false;
-                down=false;
             }else{
                 vspd=0;
             }
@@ -78,10 +76,21 @@ void Duck::update(Obstacle *obs[], int size){
     }
     rect.y+=vspd;
 
-    g->set(rect.x+8, rect.y+8);
-    g->update();
-
+    g->set(rect.x, rect.y);
+    g->update(obs, size);
+    if(ga){
+        g->attack(flip);
+        ga=false;
+    }
     hspd=0;
+
+    if(g->push){
+        hspd=lerp(rect.x, g->rect.x+g->point.x, 0.1)-rect.x;
+        g->point.x-=hspd;
+        if(g->point.x==0){
+            g->push=false;
+        }
+    }
 }
 
 void Duck::keyd(SDL_Keycode  key){
@@ -92,10 +101,16 @@ void Duck::keyd(SDL_Keycode  key){
         right=true;
     }
     if(key==SDLK_c){
-        if(!pjump && down){
+        if(!pjump){
             jump=true;
         }
         pjump=true;
+    }
+    if(key==SDLK_x){
+        if(!pga){
+            ga=true;
+        }
+        pga=true;
     }
     if(key==SDLK_z){
         action=true;
@@ -111,8 +126,13 @@ void Duck::keyu(SDL_Keycode key){
     }
     if(key==SDLK_c){
         pjump=false;
+        jump=false;
     }
     if(key==SDLK_z){
         action=false;
+    }
+    if(key==SDLK_x){
+        ga=false;
+        pga=false;
     }
 }

@@ -14,3 +14,6 @@ lin:
 	mv game app/AppRun
 	./appimagetool-x86_64.AppImage app
 	mv duck-x86_64.AppImage dist/lin/game.AppImage
+test:
+	$(CC) -o game $(SCR) $(FLAGS)
+	./game

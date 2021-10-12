@@ -14,6 +14,7 @@ extern double ticks;
 extern bool game;
 extern SDL_Rect mrect;
 bool colision(SDL_Rect *r, SDL_Rect *rr);
+float lerp(float a, float b, float f);
 
 class Duck{
     private:
@@ -32,8 +33,8 @@ class Duck{
         bool jump=false;
 
         bool action=false;
-
-        bool down=false;
+        bool ga=false;
+        bool pga=false;
     public:
         Duck(SDL_Renderer *renderer, int x, int y);
         void draw(SDL_Renderer *renderer);
