@@ -9,8 +9,6 @@ float lerp(float a, float b, float f);
 
 class Ganxo{
     private:
-        int rad=20;
-        bool on=false;
         float r=0.0;
         SDL_Point s={0, 0};
     public:
@@ -23,6 +21,7 @@ class Ganxo{
         SDL_Point rect={0, 0};
         SDL_Point point={0, 0};
         bool push=false;
+        bool on=false;
 };
 
 

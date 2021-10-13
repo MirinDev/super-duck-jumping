@@ -13,7 +13,7 @@ void Ganxo::draw(SDL_Renderer *renderer){
 void Ganxo::update(Obstacle *obs[], int size){
     if(on){
         point.x=lerp(point.x, s.x, 0.1);
-        point.y=lerp(point.x, s.y, 0.1);
+        point.y=lerp(point.y, s.y, 0.1);
 
         SDL_Rect r={rect.x+point.x, rect.y+point.y, 1, 1};
         for(int i=0; i<size; i++){
@@ -37,6 +37,7 @@ void Ganxo::attack(SDL_Rect *re){
         int x=0, y=0;
         SDL_GetMouseState(&x, &y);
         r=atan2(y-re->y, x-re->x);
+
         s.x=cos(r)*240;
         s.y=sin(r)*240;
     }

@@ -1,1 +1,1 @@
-#define USE_IMAGES true
+#define USE_IMAGES false
