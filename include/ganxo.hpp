@@ -2,8 +2,10 @@
 #define GANXO_HPP
 #include <stdio.h>
 #include <math.h>
-#include "SDL2/SDL.h"
-#include "obstacle.hpp"
+
+#include <SDL2/SDL.h>
+
+#include <obstacle.hpp>
 bool colision(SDL_Rect *r, SDL_Rect *rr);
 float lerp(float a, float b, float f);
 
@@ -22,6 +24,8 @@ class Ganxo{
         SDL_Point point={0, 0};
         bool push=false;
         bool on=false;
+
+        int mx=0, my=0;
 };
 
 

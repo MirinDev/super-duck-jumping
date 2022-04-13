@@ -1,13 +1,7 @@
-#include "mestre.hpp"
+#include <mestre.hpp>
 
 Mestre::Mestre(SDL_Renderer *renderer, int x, int y){
-    #if !USE_IMAGES
-    SDL_Surface *tmp=IMG_ReadXPMFromArray(piriquitin);
-    img=SDL_CreateTextureFromSurface(renderer, tmp);
-    SDL_FreeSurface(tmp);
-    #else
     img=IMG_LoadTexture(renderer, "res/piriquiton.png");
-    #endif
     
     rect.x=x;
     rect.y=y;

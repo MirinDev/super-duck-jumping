@@ -1,14 +1,9 @@
-#include "duck.hpp"
+// Aqui vc importa as libs do pato
+#include <duck.hpp>
 
-
+// aqui eu defino as variaveis base do pato
 Duck::Duck(SDL_Renderer *renderer, int x, int y){
-    #if !USE_IMAGES
-    SDL_Surface *tmp=IMG_ReadXPMFromArray(icon_xpm);
-    img=SDL_CreateTextureFromSurface(renderer, tmp);
-    SDL_FreeSurface(tmp);
-    #else
     img=IMG_LoadTexture(renderer, "res/duck.png");
-    #endif
     g=new Ganxo(0, 0);
     
     rect.x=x;
@@ -96,45 +91,49 @@ void Duck::update(Obstacle *obs[], int size){
 }
 
 void Duck::keyd(SDL_Keycode  key){
-    if(key==SDLK_LEFT){
+    if(key==SDLK_LEFT || key==SDLK_a){
         left=true;
     }
-    if(key==SDLK_RIGHT){
+    if(key==SDLK_RIGHT || key==SDLK_d){
         right=true;
     }
-    if(key==SDLK_c){
+    if(key==SDLK_c || key==SDLK_SPACE){
         if(!pjump){
             jump=true;
         }
         pjump=true;
     }
-    if(key==SDLK_x){
-        if(!pga){
-            ga=true;
-        }
-        pga=true;
-    }
-    if(key==SDLK_z){
+    if(key==SDLK_z || key==SDLK_LSHIFT){
         action=true;
     }
 }
 
 void Duck::keyu(SDL_Keycode key){
-    if(key==SDLK_LEFT){
+    if(key==SDLK_LEFT || key==SDLK_a){
         left=false;
     }
-    if(key==SDLK_RIGHT){
+    if(key==SDLK_RIGHT || key==SDLK_d){
         right=false;
     }
-    if(key==SDLK_c){
+    if(key==SDLK_c || key==SDLK_SPACE){
         pjump=false;
         jump=false;
     }
-    if(key==SDLK_z){
+    if(key==SDLK_z || key==SDLK_LSHIFT){
         action=false;
     }
-    if(key==SDLK_x){
-        ga=false;
-        pga=false;
+}
+
+void Duck::moused(int x, int y){
+    if(!pga){
+        ga=true;
     }
+    pga=true;
+    g->mx=x;
+    g->my=y;
+}
+
+void Duck::mouseu(){
+    ga=false;
+    pga=false;
 }

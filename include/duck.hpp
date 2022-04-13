@@ -2,14 +2,13 @@
 #define DUCK_HPP
 #include <stdio.h>
 #include <math.h>
-#include "SDL2/SDL.h"
-#include "SDL2/SDL_image.h"
-#include "config.h"
-#include "obstacle.hpp"
-#include "ganxo.hpp"
-#if !USE_IMAGES
-#include "duck_image.h"
-#endif
+
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+
+#include <config.h>
+#include <obstacle.hpp>
+#include <ganxo.hpp>
 extern double ticks;
 extern bool game;
 extern SDL_Rect mrect;
@@ -41,6 +40,8 @@ class Duck{
         void update(Obstacle *obs[], int size);
         void keyd(SDL_Keycode key);
         void keyu(SDL_Keycode key);
+        void moused(int x, int y);
+        void mouseu();
 
         SDL_Rect rect={0, 0, 32, 32};
 };

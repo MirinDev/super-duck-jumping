@@ -1,4 +1,4 @@
-#include "obstacle.hpp"
+#include <obstacle.hpp>
 
 Obstacle::Obstacle(int x, int y, int w, int h){
     rect.x=x;

@@ -1,4 +1,4 @@
-#include "ganxo.hpp"
+#include <ganxo.hpp>
 
 Ganxo::Ganxo(int sx, int sy){
     rect.x=sx;
@@ -22,6 +22,11 @@ void Ganxo::update(Obstacle *obs[], int size){
                 push=true;
             }
         }
+        if(sqrt(point.x*point.x+point.y*point.y)>=200){
+            on=false;
+            point.x=0;
+            point.y=0;
+        }
     }
 }
 
@@ -34,9 +39,7 @@ void Ganxo::attack(SDL_Rect *re){
     if(!on){
         point.x=0;
         point.y=0;
-        int x=0, y=0;
-        SDL_GetMouseState(&x, &y);
-        r=atan2(y-re->y, x-re->x);
+        r=atan2(my-re->y, mx-re->x);
 
         s.x=cos(r)*240;
         s.y=sin(r)*240;
